@@ -34,5 +34,25 @@ public class TesteCampoTreinamento {
 		Assert.assertEquals("Teste\nSegunda linha", driver.findElement(By.id("elementosForm:sugestoes")).getAttribute("value"));
 		driver.quit();
 	}
+	
+	@Test
+	public void deveInteragirComRadioButton() {
+		System.setProperty("webdriver.gecko.firefox", "/home/diego/eclipse-workspace/SeleniumCourse/geckodriver.exe");
+		WebDriver driver = new FirefoxDriver();
+		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+		driver.findElement(By.id("elementosForm:sexo:0")).click();
+		Assert.assertTrue(driver.findElement(By.id("elementosForm:sexo:0")).isSelected());
+		driver.quit();
+	}
+	
+	@Test
+	public void deveInteragirComCheckBox() {
+		System.setProperty("webdriver.gecko.firefox", "/home/diego/eclipse-workspace/SeleniumCourse/geckodriver.exe");
+		WebDriver driver = new FirefoxDriver();
+		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+		driver.findElement(By.id("elementosForm:comidaFavorita:2")).click();
+		Assert.assertTrue(driver.findElement(By.id("elementosForm:comidaFavorita:2")).isSelected());
+		driver.quit();
+	}
 
 }
