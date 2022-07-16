@@ -1,4 +1,6 @@
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -7,12 +9,22 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class TesteAlert {
 	
+	private WebDriver driver;
+	
+	@Before
+	public void inicializa() {
+		System.setProperty("webdriver.gecko.firefox", "/home/diego/eclipse-workspace/SeleniumCourse/geckodriver.exe");
+		driver = new FirefoxDriver();
+		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+	}
+	
+	@After
+	public void finaliza() {
+		driver.quit();
+	}
+	
 	@Test
 	public void deveInteragirComAlertSimples() {
-		System.setProperty("webdriver.gecko.firefox", "/home/diego/eclipse-workspace/SeleniumCourse/geckodriver.exe");
-		WebDriver driver = new FirefoxDriver();
-		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-		
 		driver.findElement(By.id("alert")).click();
 		Alert alert = driver.switchTo().alert();
 		String texto = alert.getText();
@@ -20,15 +32,10 @@ public class TesteAlert {
 		alert.accept();
 		
 		driver.findElement(By.id("elementosForm:nome")).sendKeys(texto);
-		driver.quit();
 	}
 
 	@Test
 	public void deveInteragirComAlertConfirm() {
-		System.setProperty("webdriver.gecko.firefox", "/home/diego/eclipse-workspace/SeleniumCourse/geckodriver.exe");
-		WebDriver driver = new FirefoxDriver();
-		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-		
 		driver.findElement(By.id("confirm")).click();
 		Alert alerta = driver.switchTo().alert();
 		Assert.assertEquals("Confirm Simples", alerta.getText());
@@ -42,16 +49,10 @@ public class TesteAlert {
 		alerta.dismiss();
 		Assert.assertEquals("Negado", alerta.getText());
 		alerta.dismiss();
-		
-		driver.quit();
 	}
 	
 	@Test
 	public void deveInteragirComAlertPrompt() {
-		System.setProperty("webdriver.gecko.firefox", "/home/diego/eclipse-workspace/SeleniumCourse/geckodriver.exe");
-		WebDriver driver = new FirefoxDriver();
-		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-		
 		driver.findElement(By.id("prompt")).click();
 		Alert alerta = driver.switchTo().alert();
 		Assert.assertEquals("Digite um numero", alerta.getText());
@@ -61,8 +62,6 @@ public class TesteAlert {
 		alerta.accept();
 		Assert.assertEquals(":D", alerta.getText());
 		alerta.accept();
-		
-		driver.quit();
 	}
 
 }
