@@ -13,6 +13,7 @@ import org.openqa.selenium.support.ui.Select;
 public class TesteCampoTreinamento {
 	
 	private WebDriver driver;
+	private DSL dsl;
 	
 	@Before
 	public void inicializa() {
@@ -27,41 +28,36 @@ public class TesteCampoTreinamento {
 	}
 	
 	@Test
-	public void teste() {
-	}
-	
-	@Test
 	public void testeTextField() {
-		driver.findElement(By.id("elementosForm:nome")).sendKeys("Teste de escrita");
-		Assert.assertEquals("Teste de escrita", driver.findElement(By.id("elementosForm:nome")).getAttribute("value"));
+		dsl.escrever("elementosForm:nome", "Teste de escrita");
+		Assert.assertEquals("Teste de escrita", dsl.obterValorCampo("elementosForm:nome"));
 	}
 	
 	@Test
 	public void deveInteragirComTextArea() {
-		driver.findElement(By.id("elementosForm:sugestoes")).sendKeys("Teste\nSegunda linha");
-		Assert.assertEquals("Teste\nSegunda linha", driver.findElement(By.id("elementosForm:sugestoes")).getAttribute("value"));
+		dsl.escrever("elementosForm:sugestoes", "Teste\\nSegunda linha");
+		Assert.assertEquals("Teste\nSegunda linha", dsl.obterValorCampo("elementosForm:sugestoes"));
 	}
 	
 	@Test
 	public void deveInteragirComRadioButton() {
-		driver.findElement(By.id("elementosForm:sexo:0")).click();
-		Assert.assertTrue(driver.findElement(By.id("elementosForm:sexo:0")).isSelected());
+		dsl.clicarRadio("elementosForm:sexo:0");
+		Assert.assertTrue(dsl.isRadioMarcado("elementosForm:sexo:0"));
 	}
 	
 	@Test
 	public void deveInteragirComCheckBox() {
-		driver.findElement(By.id("elementosForm:comidaFavorita:2")).click();
-		Assert.assertTrue(driver.findElement(By.id("elementosForm:comidaFavorita:2")).isSelected());
+		dsl.clicarCheck("elementosForm:comidaFavorita:2");
+		Assert.assertTrue(dsl.isCheckMarcado("elementosForm:comidaFavorita:2"));
 	}
 	
 	@Test
 	public void deveInteragirComCombo() {
-		WebElement element = driver.findElement(By.id("elementosForm:escolaridade"));
-		Select combo = new Select(element);
-		combo.selectByVisibleText("Superior");
-		Assert.assertEquals("Superior", combo.getFirstSelectedOption().getText());
+		dsl.selecionarCombo("elementosForm:escolaridade", "Superior");
+		Assert.assertEquals("Superior", dsl.obterValorCombo("elementosForm:escolaridade"));
 	}
 	
+	// Keep from here!!
 	@Test
 	public void deveVerificarValoresCombo() {
 		WebElement element = driver.findElement(By.id("elementosForm:escolaridade"));
