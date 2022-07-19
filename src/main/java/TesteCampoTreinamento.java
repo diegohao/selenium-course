@@ -20,6 +20,7 @@ public class TesteCampoTreinamento {
 		System.setProperty("webdriver.gecko.firefox", "/home/diego/eclipse-workspace/SeleniumCourse/geckodriver.exe");
 		driver = new FirefoxDriver();
 		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+		dsl = new DSL(driver);
 	}
 	
 	@After
@@ -57,24 +58,13 @@ public class TesteCampoTreinamento {
 		Assert.assertEquals("Superior", dsl.obterValorCombo("elementosForm:escolaridade"));
 	}
 	
-	// Keep from here!!
 	@Test
 	public void deveVerificarValoresCombo() {
-		WebElement element = driver.findElement(By.id("elementosForm:escolaridade"));
-		Select combo = new Select(element);
-		List<WebElement> options = combo.getOptions();
-		Assert.assertEquals(8, options.size());
-		
-		boolean encontrou = false;
-		for(WebElement option: options) {
-			if(option.getText().equals("Mestrado")) {
-				encontrou = true;
-				break;
-			}
-		}
-		Assert.assertTrue(encontrou);
+		Assert.assertEquals(8, dsl.obterQuantidadeOpcoesCombo("elementosForm:escolaridade"));
+		Assert.assertTrue(dsl.verificarOpcaoCombo("elementosForm:escolaridade", "Superior"));
 	}
 	
+	// Keep from here!!
 	@Test
 	public void deveVerificarValoresComboMultiplo() {
 		WebElement element = driver.findElement(By.id("elementosForm:esportes"));

@@ -1,3 +1,5 @@
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -51,6 +53,25 @@ public class DSL {
 		WebElement element = driver.findElement(By.id(id));
 		Select combo = new Select(element);
 		return combo.getFirstSelectedOption().getText();
+	}
+	
+	public int obterQuantidadeOpcoesCombo(String id) {
+		WebElement element = driver.findElement(By.id(id));
+		Select combo = new Select(element);
+		List<WebElement> options = combo.getOptions();
+		return options.size();
+	}
+	
+	public boolean verificarOpcaoCombo(String id, String opcao) {
+		WebElement element = driver.findElement(By.id(id));
+		Select combo = new Select(element);
+		List<WebElement> options = combo.getOptions();
+		for(WebElement option: options) {
+			if(option.getText().equals(opcao)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }
