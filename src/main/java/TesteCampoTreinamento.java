@@ -86,13 +86,13 @@ public class TesteCampoTreinamento {
 		Assert.assertEquals("Obrigado!", dsl.obterValueElemento("buttonSimple"));
 	}
 	
-	// Continue from here!!
 	@Test
 	public void deveInteragirComLinks() {
-		driver.findElement(By.linkText("Voltar")).click();
-		Assert.assertEquals("Voltou!", driver.findElement(By.id("resultado")).getText());
+		dsl.clicarLink("Voltar");
+		Assert.assertEquals("Voltou!", dsl.obterTexto("resultado"));
 	}
 	
+	// Continue from here!!
 	@Test
 	public void deveBuscarTextosNaPagina() {		
 		Assert.assertEquals("Campo de Treinamento", driver.findElement(By.tagName("h3")).getText());

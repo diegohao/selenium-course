@@ -101,5 +101,17 @@ public class DSL {
 	public String obterValueElemento(String id) {
 		return driver.findElement(By.id(id)).getAttribute("value");
 	}
+	
+	/********* Link ************/
+	
+	public void clicarLink(String link) {
+		driver.findElement(By.linkText(link)).click();
+	}
 
+	/********* Textos ************/
+	
+	public String obterTexto(String id) {
+		return driver.findElement(By.id(id)).getText();
+	}
+	
 }
