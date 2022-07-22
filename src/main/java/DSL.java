@@ -91,5 +91,15 @@ public class DSL {
 		}
 		return false;
 	}
+	
+	/********* Botao ************/
+	
+	public void clicarBotao(String id) {
+		driver.findElement(By.id(id)).click();
+	}
+	
+	public String obterValueElemento(String id) {
+		return driver.findElement(By.id(id)).getAttribute("value");
+	}
 
 }

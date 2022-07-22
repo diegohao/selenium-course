@@ -80,15 +80,13 @@ public class TesteCampoTreinamento {
 		opcoesMarcadas.containsAll(Arrays.asList("Natacao", "Karate"));
 	}
 	
-	// Continue from here!!
 	@Test
 	public void deveInteragirComBotoes() {
-		WebElement botao = driver.findElement(By.id("buttonSimple"));
-		botao.click();
-		
-		Assert.assertEquals("Obrigado!", botao.getAttribute("value"));
+		dsl.clicarBotao("buttonSimple");
+		Assert.assertEquals("Obrigado!", dsl.obterValueElemento("buttonSimple"));
 	}
 	
+	// Continue from here!!
 	@Test
 	public void deveInteragirComLinks() {
 		driver.findElement(By.linkText("Voltar")).click();
