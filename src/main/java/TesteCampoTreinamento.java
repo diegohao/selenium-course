@@ -7,9 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.Select;
 
 public class TesteCampoTreinamento {
 	
@@ -38,7 +36,7 @@ public class TesteCampoTreinamento {
 	@Test
 	public void deveInteragirComTextArea() {
 		dsl.escrever("elementosForm:sugestoes", "Teste\\nSegunda linha");
-		Assert.assertEquals("Teste\nSegunda linha", dsl.obterValorCampo("elementosForm:sugestoes"));
+		Assert.assertEquals("Teste\\nSegunda linha", dsl.obterValorCampo("elementosForm:sugestoes"));
 	}
 	
 	@Test
@@ -92,11 +90,10 @@ public class TesteCampoTreinamento {
 		Assert.assertEquals("Voltou!", dsl.obterTexto("resultado"));
 	}
 	
-	// Continue from here!!
 	@Test
 	public void deveBuscarTextosNaPagina() {		
-		Assert.assertEquals("Campo de Treinamento", driver.findElement(By.tagName("h3")).getText());
-		
-		Assert.assertEquals("Cuidado onde clica, muitas armadilhas...", driver.findElement(By.className("facilAchar")).getText());
+		Assert.assertEquals("Campo de Treinamento", dsl.obterTexto(By.tagName("h3")));
+				
+		Assert.assertEquals("Cuidado onde clica, muitas armadilhas...", dsl.obterTexto(By.className("facilAchar")));
 	}
 }

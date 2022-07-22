@@ -114,4 +114,8 @@ public class DSL {
 		return driver.findElement(By.id(id)).getText();
 	}
 	
+	public String obterTexto(By by) {
+		return driver.findElement(by).getText();
+	}
+	
 }
