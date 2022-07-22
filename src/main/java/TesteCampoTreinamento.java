@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.After;
@@ -64,23 +65,22 @@ public class TesteCampoTreinamento {
 		Assert.assertTrue(dsl.verificarOpcaoCombo("elementosForm:escolaridade", "Superior"));
 	}
 	
-	// Keep from here!!
 	@Test
 	public void deveVerificarValoresComboMultiplo() {
-		WebElement element = driver.findElement(By.id("elementosForm:esportes"));
-		Select combo = new Select(element);
-		combo.selectByVisibleText("Natacao");
-		combo.selectByVisibleText("Futebol");
-		combo.selectByVisibleText("Karate");
+		dsl.selecionarCombo("elementosForm:esportes", "Natacao");
+		dsl.selecionarCombo("elementosForm:esportes", "Futebol");
+		dsl.selecionarCombo("elementosForm:esportes", "Karate");
 		
-		List<WebElement> allSelectedOptions = combo.getAllSelectedOptions();
-		Assert.assertEquals(3, allSelectedOptions.size());
+		List<String> opcoesMarcadas = dsl.obterValoresCombo("elementosForm:esportes");
+		Assert.assertEquals(3, opcoesMarcadas.size());
 		
-		combo.deselectByVisibleText("Futebol");
-		allSelectedOptions = combo.getAllSelectedOptions();
-		Assert.assertEquals(2, allSelectedOptions.size());
+		dsl.deselecionarCombo("elementosForm:esportes", "Futebol");
+		opcoesMarcadas = dsl.obterValoresCombo("elementosForm:esportes");
+		Assert.assertEquals(2, opcoesMarcadas.size());
+		opcoesMarcadas.containsAll(Arrays.asList("Natacao", "Karate"));
 	}
 	
+	// Continue from here!!
 	@Test
 	public void deveInteragirComBotoes() {
 		WebElement botao = driver.findElement(By.id("buttonSimple"));

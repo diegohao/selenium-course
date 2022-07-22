@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -49,10 +50,27 @@ public class DSL {
 		combo.selectByVisibleText(valor);
 	}
 	
+	public void deselecionarCombo(String id, String valor) {
+		WebElement element = driver.findElement(By.id(id));
+		Select combo = new Select(element);
+		combo.deselectByVisibleText(valor);
+	}
+	
 	public String obterValorCombo(String id) {
 		WebElement element = driver.findElement(By.id(id));
 		Select combo = new Select(element);
 		return combo.getFirstSelectedOption().getText();
+	}
+	
+	public List<String> obterValoresCombo(String id) {
+		WebElement element = driver.findElement(By.id("elementosForm:esportes"));
+		Select combo = new Select(element);
+		List<WebElement> allSelectedOptions = combo.getAllSelectedOptions();
+		List<String> valores = new ArrayList<String>();
+		for(WebElement opcao: allSelectedOptions) {
+			valores.add(opcao.getText());
+		}
+		return valores;
 	}
 	
 	public int obterQuantidadeOpcoesCombo(String id) {
