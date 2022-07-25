@@ -119,9 +119,31 @@ public class DSL {
 		return driver.findElement(by).getText();
 	}
 	
+	/********* Alerts ************/
+	
 	public String alertaObterTexto() {
 		Alert alert = driver.switchTo().alert();
 		return alert.getText();
+	}
+	
+	public String alertaObterTextoEAceita() {
+		Alert alert = driver.switchTo().alert();
+		String valor = alert.getText();
+		alert.accept();
+		return valor;
+	}
+	
+	public String alertaObterTextoENega() {
+		Alert alert = driver.switchTo().alert();
+		String valor = alert.getText();
+		alert.dismiss();
+		return valor;
+	}
+	
+	public void alertaEscrever(String valor) {
+		Alert alert = driver.switchTo().alert();
+		alert.sendKeys(valor);
+		alert.accept();
 	}
 	
 }
