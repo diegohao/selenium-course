@@ -17,6 +17,10 @@ public class DSL {
 	
 	/********* TextField e TextArea ************/
 	
+	public void escrever(By by, String texto){
+		driver.findElement(by).sendKeys(texto);
+	}
+	
 	public void escrever(String id_campo, String texto) {
 		driver.findElement(By.id(id_campo)).sendKeys(texto);
 	}
@@ -144,6 +148,20 @@ public class DSL {
 		Alert alert = driver.switchTo().alert();
 		alert.sendKeys(valor);
 		alert.accept();
+	}
+	
+	/********* Frames e Janelas ************/
+	
+	public void entrarFrame(String id) {
+		driver.switchTo().frame(id);
+	}
+	
+	public void sairFrame() {
+		driver.switchTo().defaultContent();
+	}
+	
+	public void trocarJanela(String id) {
+		driver.switchTo().window(id);
 	}
 	
 }

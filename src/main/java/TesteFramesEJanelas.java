@@ -10,12 +10,14 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 public class TesteFramesEJanelas {
 	
 	private WebDriver driver;
+	private DSL dsl;
 	
 	@Before
 	public void inicializa() {
 		System.setProperty("webdriver.gecko.firefox", "/home/diego/eclipse-workspace/SeleniumCourse/geckodriver.exe");
 		driver = new FirefoxDriver();
 		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+		dsl = new DSL(driver);
 	}
 	
 	@After
@@ -24,29 +26,27 @@ public class TesteFramesEJanelas {
 	}
 	
 	@Test
-	public void deveInteragirComFrames() {		
-		driver.switchTo().frame("frame1");
-		driver.findElement(By.id("frameButton")).click();
-		Alert alert = driver.switchTo().alert();
-		String msg = alert.getText();
+	public void deveInteragirComFrames() {
+		dsl.entrarFrame("frame1");
+		dsl.clicarBotao("frameButton");
+		String msg = dsl.alertaObterTextoEAceita();
 		Assert.assertEquals("Frame OK!", msg);
-		alert.accept();
 		
-		driver.switchTo().defaultContent();
-		driver.findElement(By.id("elementosForm:nome")).sendKeys(msg);
+		dsl.sairFrame();
+		dsl.escrever("elementosForm:nome", msg);
 	}
 	
 	@Test
 	public void deveInteragirComJanelas() {
-		driver.findElement(By.id("buttonPopUpEasy")).click();
-		driver.switchTo().window("Popup");
-		driver.findElement(By.tagName("textarea")).sendKeys("Textarea da Popup");
+		dsl.clicarBotao("buttonPopUpEasy");
+		dsl.trocarJanela("Popup");
+		dsl.escrever(By.tagName("textarea"), "Textarea da Popup");
 		driver.close();
-		//driver.switchTo().window("");
-		driver.switchTo().window((String) driver.getWindowHandles().toArray()[0]);
-		driver.findElement(By.tagName("textarea")).sendKeys("Principal");
-	}
+//		dsl.trocarJanela((String) driver.getWindowHandles().toArray()[0]);
+		dsl.trocarJanela("");
+		dsl.escrever(By.tagName("textarea"), "Principal");	}
 	
+	// Continue from here...
 	@Test
 	public void deveInteragirComJanelasSemTitulo() {		
 		driver.findElement(By.id("buttonPopUpHard")).click();
