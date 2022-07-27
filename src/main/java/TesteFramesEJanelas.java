@@ -41,19 +41,17 @@ public class TesteFramesEJanelas {
 		dsl.clicarBotao("buttonPopUpEasy");
 		dsl.trocarJanela("Popup");
 		dsl.escrever(By.tagName("textarea"), "Textarea da Popup");
-		driver.close();
 //		dsl.trocarJanela((String) driver.getWindowHandles().toArray()[0]);
 		dsl.trocarJanela("");
 		dsl.escrever(By.tagName("textarea"), "Principal");	}
 	
-	// Continue from here...
 	@Test
-	public void deveInteragirComJanelasSemTitulo() {		
-		driver.findElement(By.id("buttonPopUpHard")).click();
-		driver.switchTo().window((String) driver.getWindowHandles().toArray()[1]);
-		driver.findElement(By.tagName("textarea")).sendKeys("Deu certo?");
-		driver.switchTo().window((String) driver.getWindowHandles().toArray()[0]);
-		driver.findElement(By.tagName("textarea")).sendKeys("E agora?");
+	public void deveInteragirComJanelasSemTitulo() {
+		dsl.clicarBotao("buttonPopUpHard");
+		dsl.trocarJanela((String) driver.getWindowHandles().toArray()[1]);
+		dsl.escrever(By.tagName("textarea"), "Deu certo?");
+		dsl.trocarJanela((String) driver.getWindowHandles().toArray()[0]);
+		dsl.escrever(By.tagName("textarea"), "E agora?");
 	}
 
 }
