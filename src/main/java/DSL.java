@@ -18,11 +18,12 @@ public class DSL {
 	/********* TextField e TextArea ************/
 	
 	public void escrever(By by, String texto){
+		driver.findElement(by).clear();
 		driver.findElement(by).sendKeys(texto);
 	}
 	
 	public void escrever(String id_campo, String texto) {
-		driver.findElement(By.id(id_campo)).sendKeys(texto);
+		escrever(By.id(id_campo), texto);
 	}
 	
 	public String obterValorCampo(String id_campo) {
