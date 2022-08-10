@@ -173,4 +173,31 @@ public class DSL {
 		return js.executeScript(cmd, param);
 	}
 	
+	/********* Tabela ************/
+	
+	public void clicarBotaoTabela(String colunaBusca, String valor) {
+		WebElement tabela = driver.findElement(By.xpath("//*[@id='elementosForm:tableUsuarios']"));
+		int idColuna = obterIndiceColuna(colunaBusca, tabela);
+		List<WebElement> linhas = tabela.findElements(By.xpath(".//tr/td["+idColuna+"]"));
+		int idLinha = -1;
+		for(int i = 0; i < linhas.size(); i++) {
+			if(linhas.get(i).getText().equals(valor)) {
+				idLinha = i+1;
+				break;
+			}
+		}
+	}
+
+	private int obterIndiceColuna(String coluna, WebElement tabela) {
+		List<WebElement> colunas = tabela.findElements(By.xpath(".//th"));
+		int idConta = -1;
+		for(int i = 0; i < colunas.size(); i++) {
+			if(colunas.get(i).getText().equals(coluna)) {
+				idConta = i+1;
+				break;
+			}
+		}
+		return idConta;
+	}
+	
 }
