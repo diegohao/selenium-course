@@ -103,6 +103,11 @@ public class DSL {
 		return false;
 	}
 	
+	public void selecionarComboPrime(String valor) {
+		clicarRadio(By.xpath("//div[@id='j_idt339:option']//span"));
+		clicarRadio(By.xpath("//ul[@id='j_idt339:option_items']//li[.='"+valor+"']"));
+	}
+	
 	/********* Botao ************/
 	
 	public void clicarBotao(String id) {
