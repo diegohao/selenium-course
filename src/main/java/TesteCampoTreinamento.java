@@ -1,3 +1,6 @@
+import static br.diego.core.DriverFactory.getDriver;
+import static br.diego.core.DriverFactory.killDriver;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -6,26 +9,23 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
+
+import br.diego.core.DSL;
 
 public class TesteCampoTreinamento {
 	
-	private WebDriver driver;
 	private DSL dsl;
 	
 	@Before
 	public void inicializa() {
-		System.setProperty("webdriver.gecko.firefox", "/home/diego/eclipse-workspace/SeleniumCourse/geckodriver.exe");
-		driver = new FirefoxDriver();
-		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-		dsl = new DSL(driver);
+		getDriver().get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+		dsl = new DSL();
 	}
 	
 	@After
 	public void finaliza() {
-		driver.quit();
+		killDriver();
 	}
 	
 	@Test
@@ -110,7 +110,7 @@ public class TesteCampoTreinamento {
 	public void testeJavascript() {
 		dsl.executarJS("document.getElementById('elementosForm:nome').value = 'Escrito via JS'");
 		
-		WebElement element = driver.findElement(By.id("elementosForm:nome"));
+		WebElement element = getDriver().findElement(By.id("elementosForm:nome"));
 		dsl.executarJS("arguments[0].style.border = arguments[1]", element, "solid 4px red");
 	}
 	
