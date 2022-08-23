@@ -1,14 +1,15 @@
+package br.diego.test;
 import static br.diego.core.DriverFactory.getDriver;
-import static br.diego.core.DriverFactory.killDriver;
 
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import br.diego.core.BaseTeste;
 import br.diego.core.DSL;
+import br.diego.page.CampoTreinamentoPage;
 
-public class TesteCadastro {
+public class TesteCadastro extends BaseTeste {
 	
 	private DSL dsl;
 	private CampoTreinamentoPage page;
@@ -18,11 +19,6 @@ public class TesteCadastro {
 		getDriver().get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
 		dsl = new DSL();
 		page = new CampoTreinamentoPage();
-	}
-	
-	@After
-	public void finaliza() {
-		killDriver();
 	}
 
 	@Test

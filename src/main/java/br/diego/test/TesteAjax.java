@@ -1,3 +1,4 @@
+package br.diego.test;
 import static br.diego.core.DriverFactory.getDriver;
 import static br.diego.core.DriverFactory.killDriver;
 

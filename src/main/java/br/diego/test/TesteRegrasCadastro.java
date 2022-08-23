@@ -1,10 +1,10 @@
+package br.diego.test;
 import static br.diego.core.DriverFactory.getDriver;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,12 +13,13 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
 
+import br.diego.core.BaseTeste;
 import br.diego.core.DSL;
-import br.diego.core.DriverFactory;
+import br.diego.page.CampoTreinamentoPage;
 
 // DDT (Data-Driven Testing)
 @RunWith(Parameterized.class)
-public class TesteRegrasCadastro {
+public class TesteRegrasCadastro extends BaseTeste {
 	
 	private DSL dsl;
 	private CampoTreinamentoPage page;
@@ -42,12 +43,7 @@ public class TesteRegrasCadastro {
 		dsl = new DSL();
 		page = new CampoTreinamentoPage();
 	}
-	
-	@After
-	public void finaliza() {
-		DriverFactory.killDriver();
-	}
-	
+		
 	@Parameters
 	public static Collection<Object[]> getCollection() {
 		return Arrays.asList(new Object[][] {
